@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Platform, StatusBar ,TextInput, Button} from 'react-native'
+import {postBlogs} from '../actions'
+import {connect} from 'react-redux'
 
-export default class Post extends Component {
+class Post extends Component {
 
     state = {
         title: "",
@@ -9,7 +11,12 @@ export default class Post extends Component {
     }
 
     submit = () => {
-
+        this.props.postBlogs(this.state.title,this.state.content);
+        this.setState({
+            title:'',
+            content:''
+        })
+        this.props.navigation.navigate('NavStack');
     }
 
     render() {
@@ -38,3 +45,5 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS == 'android' ? StatusBar.currentHeight : 0
     },
 });
+
+export default connect(null, {postBlogs} )(Post);

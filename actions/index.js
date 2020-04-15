@@ -11,3 +11,9 @@ export function getBlogs() {
         })
     }
 }
+
+export function postBlogs(title, content){
+    return (dispatch) => {
+        firebase.database().ref('/blogs').push({title,content})
+    }
+}
