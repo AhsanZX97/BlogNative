@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         justifyContent: 'center',
+        padding: 20,
         paddingTop: Platform.OS == 'android' ? StatusBar.currentHeight : 0
     },
 });

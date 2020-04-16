@@ -23,3 +23,9 @@ export function deleteBlogs(key){
         firebase.database().ref(`/blogs/${key}`).remove()
     }
 }
+
+export function editBlog(title, content, key){
+    return (dispatch) => {
+        firebase.database().ref(`/blogs`).child(key).update({title, content})
+    }
+}
