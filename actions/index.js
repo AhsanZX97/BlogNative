@@ -6,7 +6,7 @@ export function getBlogs() {
         firebase.database().ref('/blogs').on('value', snapshot => {
             dispatch({
                 type:"BLOGS_FETCH",
-                payload: snapcshot.val()
+                payload: snapshot.val()
             })
         })
     }

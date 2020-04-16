@@ -1,15 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList} from 'react-native';
+import { getBlogs } from '../actions';
+import { connect } from 'react-redux';
+import _ from 'lodash'
 
-export default class Blogs extends React.Component {
-    render() {
-        return (
-            <View style={styles.container}>
-              <Text>Blog Screen</Text>
-              <Button title = "Go To Edit" onPress={() => this.props.navigation.navigate('Edit')}/>
-            </View>
-        );
-    }
+class Blogs extends React.Component {
+
+  componentDidMount() {
+    this.props.getBlogs()
+  }
+
+  render() {
+    console.log(this.props.listOfBlogs)
+    return (
+      <View style={styles.container}>
+        <Text>Blog Screen</Text>
+        <FlatList style= {{width:'100%'}}
+          data = {this.props.listOfBlogs}
+          keyExtractor ={(item) => item.key}
+          showsVerticalScrollIndicator= {false}
+          renderItem={({item}) => {
+            return (
+              <View style = {{elevation:8, marginBottom:15, borderRadius:15,backgroundColor:'#575FCF',padding:20}}>
+                <Text style ={{fontSize:15, lineHeight:15,color:"#fff", fontWeight:'bold'}}>{item.title}</Text>
+                <Text style = {{fontSize:10, lineHeight:15, color:'#fff'}}>{item.content}</Text>
+              </View>
+            )
+          }} />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -18,5 +38,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    padding:10
   },
 });
+
+
+function mapStateToProps(state) {
+
+  const listOfBlogs = _.map(state.blogsList.blogsList, (val, key) => {
+    return {
+      ...val,
+      key:key
+    }
+  })
+
+  return {
+    listOfBlogs
+  }
+}
+
+export default connect(mapStateToProps, { getBlogs })(Blogs);
