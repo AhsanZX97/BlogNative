@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
-import { getBlogs } from '../actions';
+import { getBlogs, deleteBlogs } from '../actions';
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import { TouchableHighlight } from 'react-native-gesture-handler';
@@ -30,7 +30,7 @@ class Blogs extends React.Component {
                       <Text>View</Text>
                     </View>
                   </TouchableHighlight>
-                  <TouchableHighlight>
+                  <TouchableHighlight onPress={deleteBlogs(item.key)}>
                     <View>
                       <Text>Delete</Text>
                     </View>
@@ -69,4 +69,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { getBlogs })(Blogs);
+export default connect(mapStateToProps, { getBlogs, deleteBlogs })(Blogs);

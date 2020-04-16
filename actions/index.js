@@ -17,3 +17,9 @@ export function postBlogs(title, content){
         firebase.database().ref('/blogs').push({title,content})
     }
 }
+
+export function deleteBlogs(key){
+    return (dispatch) => {
+        firebase.database().ref(`/blogs/${key}`).remove()
+    }
+}
