@@ -3,10 +3,21 @@ import firebase from '../db'
 
 export function getBlogs() {
     return (dispatch) => {
+
+        dispatch({
+            type:"BLOGS_LOADING_STATUS",
+            payload:true
+        })
+
         firebase.database().ref('/blogs').on('value', snapshot => {
             dispatch({
                 type:"BLOGS_FETCH",
                 payload: snapshot.val()
+            })
+
+            dispatch({
+                type:"BLOGS_LOADING_STATUS",
+                payload:false
             })
         })
     }

@@ -12,10 +12,13 @@ class Blogs extends React.Component {
   }
 
   render() {
+    console.log(this.props.loadingReducer)
     return (
+
       <View style={styles.container}>
-        <Text>Blog Screen</Text>
-        <FlatList style={{ width: '100%' }}
+
+      {
+        this.props.loadingReducer ? <Text> Loading </Text> : <FlatList style={{ width: '100%' }}
           data={this.props.listOfBlogs}
           keyExtractor={(item) => item.key}
           showsVerticalScrollIndicator={false}
@@ -39,6 +42,7 @@ class Blogs extends React.Component {
               </View>
             )
           }} />
+      }
       </View>
     );
   }
@@ -65,7 +69,8 @@ function mapStateToProps(state) {
   })
 
   return {
-    listOfBlogs
+    listOfBlogs,
+    loadingReducer: state.loadingReducer.loadingReducer
   }
 }
 
